@@ -30,4 +30,8 @@ config :bookbump, Bookbump.Repo,
   hostname: "localhost",
   pool_size: 10
 
+# Guardian JSON Web Token
+config :guardian, Guardian,
+  secret_key: System.get_env("GUARDIAN_SECRET")
+
 import_config "dev.secret.exs"
