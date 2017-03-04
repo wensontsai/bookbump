@@ -11,6 +11,8 @@ import MatchAuthenticated from '../../components/MatchAuthenticated';
 import RedirectAuthenticated from '../../components/RedirectAuthenticated';
 import Sidebar from '../../components/Sidebar';
 import Room from '../Room';
+import Alert from '../Alert';
+import { Room as RoomType } from '../../types';
 
 type Props = {
   authenticate: () => void,
@@ -18,7 +20,7 @@ type Props = {
   isAuthenticated: boolean,
   willAuthenticate: boolean,
   logout: () => void,
-  currentUserRooms: Array,
+  currentUserRooms: Array<RoomType>,
 }
 
 class App extends Component {
@@ -34,7 +36,7 @@ class App extends Component {
 
   props: Props
 
-  handleLogout = router => this.props.logout(router);
+  handleLogout = (router) => this.props.logout(router);
 
   render() {
     const { isAuthenticated, willAuthenticate, currentUserRooms } = this.props;
@@ -42,8 +44,9 @@ class App extends Component {
 
     return (
       <BrowserRouter>
-        {({ router }) => (
+        {({ router, location }) => (
           <div style={{ display: 'flex', flex: '1' }}>
+            <Alert pathname={location.pathname} />
             {isAuthenticated &&
               <Sidebar
                 router={router}
@@ -64,7 +67,7 @@ class App extends Component {
 }
 
 export default connect(
-  state => ({
+  (state) => ({
     isAuthenticated: state.session.isAuthenticated,
     willAuthenticate: state.session.willAuthenticate,
     currentUserRooms: state.rooms.currentUserRooms,

@@ -31,11 +31,9 @@ defmodule Bookbump.UserSocket do
     end
   end
 
-  # def connect(_params, socket) do
-  #   {:ok, socket}
-  # end
-
-  def connect(_params, _socket) do: :error
+  def connect(_params, socket) do
+    {:ok, socket}
+  end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
   #
